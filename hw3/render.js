@@ -76,7 +76,8 @@ export function layout(title, content) {
     let content = `
     <h1>Contacts</h1>
     <p>You have <strong>${posts.length}</strong> contacts!</p>
-    <p><a href="/contact/new">Create a contact</a></p>
+    <p><a href="/contact/search">Query Contact person</p>
+    <p><a href="/contact/new">Create a Contact</a></p>
     <ul id="posts">
       ${list.join('\n')}
     </ul>
@@ -95,6 +96,42 @@ export function layout(title, content) {
     </form>
     `)
   }
+
+  export function search() {
+    return layout('Query Contact person', `
+    <h1>Query Contact person</h1>
+    <form action="/search" method="post">
+      <p><input type="text" placeholder="Name" name="name" required></p>
+      <p><input type="submit" value="Search"></p>
+    </form>
+    `)
+  }
+
+  export function found(resultHtml) {
+    return layout('Search results', `
+      <h1>Query Contact person</h1>
+      <form action="/search" method="post">
+        <p><input type="text" placeholder="Name" name="name"></p>
+        <p><input type="submit" value="Search"></p>
+      </form>
+      ${resultHtml}
+    `);
+  }
+  
+  
+  export function not_found() {
+    return layout('Search results',
+      `
+    <h1>Query Contact person</h1>
+    <form action="/search" method="post">
+      <p><input type="text" placeholder="Name" name="name"></p>
+      <p><input type="submit" value="Search"></p>
+    </form>
+    <h1>Not Found</h1>
+    `,
+    );
+  }
+  
   
   export function show(post) {
     return layout(post.title, `
